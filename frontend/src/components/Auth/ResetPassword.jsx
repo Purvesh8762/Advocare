@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { resetPassword } from "../../api/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/LOGO.png";
 import { toast } from "react-toastify";
 
 export default function ResetPassword() {
