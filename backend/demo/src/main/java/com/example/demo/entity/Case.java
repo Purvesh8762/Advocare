@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "citizen_cases")
@@ -104,12 +105,30 @@ public class Case {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-        if (caseNumber == null) {
-            caseNumber = "CASE-" + System.currentTimeMillis();
-        }
+    LocalDateTime now = LocalDateTime.now();
+
+    if (createdAt == null) {
+        createdAt = now;
     }
+
+    updatedAt = now;
+
+    if (caseNumber == null || caseNumber.trim().isEmpty()) {
+        caseNumber = "CASE-" + UUID.randomUUID().toString().replace("-", "").toUpperCase();
+    }
+
+    if (currentStep == null) {
+        currentStep = 0;
+    }
+
+    if (isSubmitted == null) {
+        isSubmitted = false;
+    }
+
+    if (status == null || status.isBlank()) {
+        status = "DRAFT";
+    }
+}
 
     @PreUpdate
     protected void onUpdate() {
